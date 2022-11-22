@@ -1,0 +1,34 @@
+{
+  "name": "workshop",
+  "packageManager": "yarn@3.2.4",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.24",
+    "@types/react-dom": "^18.0.8",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "@vitejs/plugin-react": "^2.2.0",
+    "eslint": "^8.0.1",
+    "eslint-config-airbnb": "^18.0.4",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-plugin-expect-type": "^0.2.0",
+    "eslint-plugin-import": "^2.25.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-modules-newlines": "^0.0.7",
+    "eslint-plugin-react": "^7.31.9",
+    "typescript": "^4.6.4",
+    "vite": "^3.2.3"
+  }
+}
