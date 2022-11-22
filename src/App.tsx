@@ -2,7 +2,7 @@ import reactLogo from './assets/react.svg';
 import './App.css';
 import {
   Counter,
-} from './components/counters/ClassCounter';
+} from './components/counters/FnCounter';
 
 function App() {
   return (
@@ -22,7 +22,6 @@ function App() {
           Edit
           {' '}
           <code>src/App.tsx</code>
-          {JSON.stringify('awesome')}
           and save to test HMR
         </div>
       </div>
