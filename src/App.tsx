@@ -1,52 +1,21 @@
-import reactLogo from './assets/react.svg';
-import './App.css';
 import {
-  Counter,
-} from './components/counters/FnCounter';
+  Container,
+} from './components/layout/Container';
+import {
+  Todos,
+} from './components/todos/Todos';
+import styles from './App.module.css';
 
 function App() {
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <div>
-          <Counter className="red" />
-          Edit
-          {' '}
-          <code>src/App.tsx</code>
-          and save to test HMR
-        </div>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis quam ratione magni commodi aut. Optio amet mollitia blanditiis vel debitis, laboriosam cumque sit sunt excepturi consectetur molestiae, explicabo eum architecto.</p>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis quam ratione magni commodi aut. Optio amet mollitia blanditiis vel debitis, laboriosam cumque sit sunt excepturi consectetur molestiae, explicabo eum architecto.</p>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis quam ratione magni commodi aut. Optio amet mollitia blanditiis vel debitis, laboriosam cumque sit sunt excepturi consectetur molestiae, explicabo eum architecto.</p>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis quam ratione magni commodi aut. Optio amet mollitia blanditiis vel debitis, laboriosam cumque sit sunt excepturi consectetur molestiae, explicabo eum architecto.</p>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis quam ratione magni commodi aut. Optio amet mollitia blanditiis vel debitis, laboriosam cumque sit sunt excepturi consectetur molestiae, explicabo eum architecto.</p>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis quam ratione magni commodi aut. Optio amet mollitia blanditiis vel debitis, laboriosam cumque sit sunt excepturi consectetur molestiae, explicabo eum architecto.</p>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis quam ratione magni commodi aut. Optio amet mollitia blanditiis vel debitis, laboriosam cumque sit sunt excepturi consectetur molestiae, explicabo eum architecto.</p>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis quam ratione magni commodi aut. Optio amet mollitia blanditiis vel debitis, laboriosam cumque sit sunt excepturi consectetur molestiae, explicabo eum architecto.</p>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis quam ratione magni commodi aut. Optio amet mollitia blanditiis vel debitis, laboriosam cumque sit sunt excepturi consectetur molestiae, explicabo eum architecto.</p>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis quam ratione magni commodi aut. Optio amet mollitia blanditiis vel debitis, laboriosam cumque sit sunt excepturi consectetur molestiae, explicabo eum architecto.</p>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis quam ratione magni commodi aut. Optio amet mollitia blanditiis vel debitis, laboriosam cumque sit sunt excepturi consectetur molestiae, explicabo eum architecto.</p>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis quam ratione magni commodi aut. Optio amet mollitia blanditiis vel debitis, laboriosam cumque sit sunt excepturi consectetur molestiae, explicabo eum architecto.</p>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis quam ratione magni commodi aut. Optio amet mollitia blanditiis vel debitis, laboriosam cumque sit sunt excepturi consectetur molestiae, explicabo eum architecto.</p>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis quam ratione magni commodi aut. Optio amet mollitia blanditiis vel debitis, laboriosam cumque sit sunt excepturi consectetur molestiae, explicabo eum architecto.</p>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis quam ratione magni commodi aut. Optio amet mollitia blanditiis vel debitis, laboriosam cumque sit sunt excepturi consectetur molestiae, explicabo eum architecto.</p>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis quam ratione magni commodi aut. Optio amet mollitia blanditiis vel debitis, laboriosam cumque sit sunt excepturi consectetur molestiae, explicabo eum architecto.</p>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis quam ratione magni commodi aut. Optio amet mollitia blanditiis vel debitis, laboriosam cumque sit sunt excepturi consectetur molestiae, explicabo eum architecto.</p>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis quam ratione magni commodi aut. Optio amet mollitia blanditiis vel debitis, laboriosam cumque sit sunt excepturi consectetur molestiae, explicabo eum architecto.</p>
-    </div>
+    <section className={styles.App}>
+      <header className={styles.NavBar}>
+        <Container>Todo List App</Container>
+      </header>
+      <Container className={styles.Content}>
+        <Todos />
+      </Container>
+    </section>
   );
 }
 
