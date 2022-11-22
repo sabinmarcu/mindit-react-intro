@@ -1,12 +1,10 @@
-import {
-  useState,
-} from 'react';
 import reactLogo from './assets/react.svg';
 import './App.css';
+import {
+  Counter,
+} from './components/counters/ClassCounter';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <div className="App">
       <div>
@@ -19,18 +17,14 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button type="button" onClick={() => setCount((c) => c + 1)}>
-          count is
-          {' '}
-          {count}
-        </button>
-        <p>
+        <div>
+          <Counter className="red" />
           Edit
           {' '}
           <code>src/App.tsx</code>
-          {' '}
+          {JSON.stringify('awesome')}
           and save to test HMR
-        </p>
+        </div>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
