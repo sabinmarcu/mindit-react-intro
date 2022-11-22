@@ -3,6 +3,8 @@ import {
   useState,
   useCallback,
   useMemo,
+  useDebugValue,
+  useEffect,
 } from 'react';
 import {
   CounterDisplay,
@@ -73,6 +75,8 @@ const useCounter = (defaultValue = 0) => {
     [setCount],
   );
 
+  useDebugValue(`Count: ${count}`);
+
   return [count, increment, decrement] as const;
 };
 
@@ -81,6 +85,15 @@ export const Counter: FC<CounterProps> = ({ className }) => {
 
   const getDecrementText = useCallback(
     () => 'Decrement',
+    [],
+  );
+
+  useEffect(
+    () => {
+      const handler = () => console.log('SCROLL');
+      window.addEventListener('scroll', handler);
+      return () => window.removeEventListener('scroll', handler);
+    },
     [],
   );
 

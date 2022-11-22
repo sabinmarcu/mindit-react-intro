@@ -75,6 +75,18 @@ export class Counter extends Component<CounterProps, CounterState> {
     this.state = { count: 0 };
   }
 
+  componentDidMount() {
+    window.addEventListener('scroll', this.scrollHandler);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.scrollHandler);
+  }
+
+  scrollHandler = () => {
+    console.log('SCROLL', this);
+  };
+
   increment = () => {
     this.setState((oldState) => ({ count: oldState.count + 1 }));
   };
