@@ -16,12 +16,14 @@ interface TodosType {
   todos: Todo[],
   onToggle: (id: Todo['id']) => void,
   deleteItem: (id: Todo['id']) => void,
+  addItem: (text: Todo['text']) => void,
 }
 
 export const TodosContext = createContext<TodosType>({
   todos: [],
   onToggle: () => { throw new Error('Not implemented'); },
   deleteItem: () => { throw new Error('Not implemented'); },
+  addItem: () => { throw new Error('Not implemented'); },
 });
 
 export const useTodos = () => {
@@ -48,11 +50,19 @@ export const useTodos = () => {
     },
     [setItems],
   );
+  const addItem = useCallback(
+    (text: Todo['text']) => {
+      const id = Math.max(...items.map((item) => item.id)) + 1;
+      setItems((prevItems) => [...prevItems, { text, id, done: false }]);
+    },
+    [setItems],
+  );
 
   const result: TodosType = {
     todos: items,
     onToggle,
     deleteItem,
+    addItem,
   } as const;
 
   return result;
@@ -104,3 +114,7 @@ export const useTodoDelete = (id: Todo['id']) => {
   );
   return toggle;
 };
+
+export const useTodoAdd = () => (
+  useContext(TodosContext).addItem
+);

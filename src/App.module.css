@@ -22,4 +22,6 @@
 .Content {
   width: 100%;
   align-items: flex-start;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
 }

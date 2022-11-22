@@ -1,7 +1,11 @@
-.List {
-  flex: 1;
+.Card {
+  width: 100%;
   background: #444;
   border-radius: 4px;
   padding: 1rem 0;
   margin-top: 2rem;
+}
+
+.Card > * {
+  padding: 1rem 1.5rem;
 }

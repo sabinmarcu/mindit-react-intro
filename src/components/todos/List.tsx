@@ -1,7 +1,9 @@
 import {
   FC,
 } from 'react';
-import styles from './List.module.css';
+import {
+  Card,
+} from '../layout/Card';
 import {
   ListItem,
 } from './ListItem';
@@ -12,13 +14,13 @@ import {
 export const List: FC = () => {
   const ids = useTodosListIds();
   return (
-    <div className={styles.List}>
+    <Card>
       {ids.map((id) => (
         <ListItem
           key={id}
           todo={id}
         />
       ))}
-    </div>
+    </Card>
   );
 };
