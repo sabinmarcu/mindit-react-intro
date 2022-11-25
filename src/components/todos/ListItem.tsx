@@ -1,5 +1,5 @@
 import {
-  FC,
+  forwardRef,
 } from 'react';
 import {
   Todo,
@@ -16,37 +16,39 @@ interface ListItemProps {
   todo: Todo['id'],
 }
 
-export const ListItem: FC<ListItemProps> = ({
-  todo: id,
-}) => {
-  const {
-    text,
-    done,
-  } = useTodo(id);
-  const onToggle = useTodoToggle(id);
-  return (
-    <div className={styles.Item}>
-      <p>{text}</p>
-      <aside>
-        <input
-          type="checkbox"
-          checked={done}
-          onChange={onToggle}
-        />
-        <DeleteItem id={id} />
-      </aside>
-    </div>
-  );
-};
+export const ListItem = forwardRef<HTMLDivElement, ListItemProps>(
+  ({
+    todo: id,
+  }, ref) => {
+    const {
+      text,
+      done,
+    } = useTodo(id);
+    const onToggle = useTodoToggle(id);
+    return (
+      <div className={styles.Item} ref={ref}>
+        <p>{text}</p>
+        <aside>
+          <input
+            type="checkbox"
+            checked={done}
+            onChange={onToggle}
+          />
+          <DeleteItem id={id} />
+        </aside>
+      </div>
+    );
+  },
+);
 
-export const ListItemWithHoc: FC<Todo> = ({
+export const ListItemWithHoc = forwardRef<HTMLDivElement, Todo>(({
   text,
   done,
   id,
-}) => {
+}, ref) => {
   const onToggle = useTodoToggle(id);
   return (
-    <div className={styles.Item}>
+    <div className={styles.Item} ref={ref}>
       <p>{text}</p>
       <aside>
         <input
@@ -58,6 +60,7 @@ export const ListItemWithHoc: FC<Todo> = ({
       </aside>
     </div>
   );
-};
+});
 
+// @ts-ignore
 export const ListItemAfterHoc = withTodo(ListItemWithHoc);

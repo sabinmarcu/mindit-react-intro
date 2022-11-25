@@ -1,7 +1,9 @@
 import {
   createContext,
   FC,
+  forwardRef,
   PropsWithChildren,
+  PropsWithRef,
   useCallback,
   useContext,
   useMemo,
@@ -140,20 +142,25 @@ type WrapperProps<P> =
   Omit<P, keyof Todo>
   & { todo: Todo['id'] };
 
-export const withTodo = <P extends Todo>(
-  Component: FC<P>,
+export const withTodo = <P extends Todo, R extends HTMLElement>(
+// @TODO: find a way to type this
+  Component: FC<P & PropsWithRef<R>>,
 ) => {
-  const Wrapper: FC<WrapperProps<P>> = (props) => {
-    const { todo: id, ...rest } = props;
-    const todo = useTodo(id);
-    const finalProps = { ...rest, ...todo } as unknown as P;
-    return (
-      <Component
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        {...finalProps}
-      />
-    );
-  };
+  const Wrapper = forwardRef<R, WrapperProps<P>>(
+    (props, ref) => {
+      const { todo: id, ...rest } = props;
+      const todo = useTodo(id);
+      const finalProps = { ...rest, ...todo } as unknown as P;
+      return (
+        // @ts-ignore
+        <Component
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...finalProps}
+          ref={ref}
+        />
+      );
+    },
+  );
   Wrapper.displayName = `withTodo(${Component.displayName ?? Component.name})`;
   return Wrapper;
 };
