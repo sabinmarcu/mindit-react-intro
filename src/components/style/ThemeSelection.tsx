@@ -16,15 +16,19 @@ import {
 } from '@mui/icons-material';
 import styled from '@emotion/styled';
 import {
-  useThemeSelection,
-} from '../../hooks/useThemeSelection';
+  useRecoilValue,
+  useRecoilState,
+} from 'recoil';
 import {
   ThemeSelection as ThemeSelectionType,
   themeSelectionText,
 } from '../../data/themes';
+import {
+  themeSelection,
+} from '../../stores/themeSelectionRecoil';
 
 export const ThemeSelectionIcon: FC = () => {
-  const [,selection] = useThemeSelection();
+  const selection = useRecoilValue(themeSelection);
   switch (selection) {
   case 'light': return <LightMode />;
   case 'dark': return <DarkMode />;
@@ -38,14 +42,14 @@ const ThemeSelectionButton = styled(IconButton)(
   }),
 );
 
-const ThemeSelectionItem = styled(MenuItem)<{ active: boolean }>(
-  ({ active, theme: { palette: { primary: { main } } } }) => ({
-    color: active ? main : undefined,
+const ThemeSelectionItem = styled(MenuItem)<{ isSelected: boolean }>(
+  ({ isSelected, theme: { palette: { primary: { main } } } }) => ({
+    color: isSelected ? main : undefined,
   }),
 );
 
 export const ThemeSelection: FC = () => {
-  const [,selection, setSelection] = useThemeSelection();
+  const [selection, setSelection] = useRecoilState(themeSelection);
   const [open, setOpen] = useState(false);
   const toggleOpen = useCallback(() => setOpen((prev) => !prev), []);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -62,13 +66,13 @@ export const ThemeSelection: FC = () => {
         <ThemeSelectionIcon />
       </ThemeSelectionButton>
       <Menu open={open} onClick={toggleOpen} anchorEl={buttonRef.current}>
-        {Object.entries(themeSelectionText).map<ThemeSelectionType, string>(
+        {Object.entries(themeSelectionText).map(
           ([key, text]) => (
             <ThemeSelectionItem
               key={key}
               value={key}
-              active={key === selection}
-              onClick={onSelect(key)}
+              isSelected={key === selection}
+              onClick={onSelect(key as ThemeSelectionType)}
             >
               {text}
             </ThemeSelectionItem>
@@ -78,4 +82,3 @@ export const ThemeSelection: FC = () => {
     </>
   );
 };
-// const [selection, setSelection] = useThemeSelection();

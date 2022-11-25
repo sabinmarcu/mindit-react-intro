@@ -4,15 +4,18 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import styled from '@emotion/styled';
 import {
+  RecoilRoot,
+} from 'recoil';
+import {
   Todos,
 } from './components/todos/Todos';
 import styles from './App.module.css';
 import {
-  ThemeSelectionProvider,
-} from './hooks/useThemeSelection';
-import {
   ThemeSelection,
 } from './components/style/ThemeSelection';
+import {
+  ThemeProvider,
+} from './stores/themeSelectionRecoil';
 
 export const AppWrapper = styled.section(`
   width: 100%;
@@ -42,21 +45,23 @@ export const ToolbarContainer = styled(Container)`
 
 function App() {
   return (
-    <ThemeSelectionProvider>
-      <AppWrapper>
-        <AppBar position="sticky">
-          <Toolbar>
-            <ToolbarContainer>
-              <Typography variant="h4">Todo List App</Typography>
-              <ThemeSelection />
-            </ToolbarContainer>
-          </Toolbar>
-        </AppBar>
-        <Container className={styles.Content}>
-          <Todos />
-        </Container>
-      </AppWrapper>
-    </ThemeSelectionProvider>
+    <RecoilRoot>
+      <ThemeProvider>
+        <AppWrapper>
+          <AppBar position="sticky">
+            <Toolbar>
+              <ToolbarContainer>
+                <Typography variant="h4">Todo List App</Typography>
+                <ThemeSelection />
+              </ToolbarContainer>
+            </Toolbar>
+          </AppBar>
+          <Container className={styles.Content}>
+            <Todos />
+          </Container>
+        </AppWrapper>
+      </ThemeProvider>
+    </RecoilRoot>
   );
 }
 
