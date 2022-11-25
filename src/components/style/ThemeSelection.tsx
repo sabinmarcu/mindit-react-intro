@@ -42,7 +42,10 @@ const ThemeSelectionButton = styled(IconButton)(
   }),
 );
 
-const ThemeSelectionItem = styled(MenuItem)<{ isSelected: boolean }>(
+const ThemeSelectionItem = styled(
+  MenuItem,
+  { shouldForwardProp: (prop) => prop !== 'isSelected' },
+)<{ isSelected: boolean }>(
   ({ isSelected, theme: { palette: { primary: { main } } } }) => ({
     color: isSelected ? main : undefined,
   }),
