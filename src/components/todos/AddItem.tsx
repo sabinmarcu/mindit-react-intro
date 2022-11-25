@@ -9,6 +9,12 @@ import {
 import {
   Card,
 } from '../layout/Card';
+import {
+  Button,
+} from '../style/Button';
+import {
+  Input,
+} from '../style/Input';
 import styles from './AddItem.module.css';
 import {
   useTodoAdd,
@@ -45,24 +51,21 @@ export const AddItem: FC = () => {
   return (
     <Card>
       <div className={styles.Wrapper}>
-        <input
+        <Input
           type="text"
-          className={[
-            styles.Input,
-            isTouched && (isValid ? styles.Valid : styles.Invalid),
-          ].filter(Boolean).join(' ')}
+          valid={isValid}
+          touched={isTouched}
           value={value}
           onChange={onChange}
         />
-        <button
+        <Button
           type="button"
           className={styles.Button}
           disabled={!isValid}
           onClick={onSubmit}
         >
           Add
-
-        </button>
+        </Button>
       </div>
       {isTouched && !isValid
         ? (

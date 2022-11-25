@@ -2,6 +2,9 @@ import {
   FC,
 } from 'react';
 import {
+  Button,
+} from '../style/Button';
+import {
   Todo,
   useTodoDelete,
 } from './useTodos';
@@ -15,6 +18,6 @@ export const DeleteItem: FC<DeleteItemProps> = ({
 }) => {
   const onDelete = useTodoDelete(id);
   return (
-    <button type="button" onClick={onDelete}>Delete</button>
+    <Button type="button" onClick={onDelete}>Delete</Button>
   );
 };

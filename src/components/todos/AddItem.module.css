@@ -6,23 +6,3 @@
 .Button {
   margin-left: 1rem;
 }
-
-.Input {
-  flex: 1;
-  background: transparent;
-  border-radius: 0;
-  border: none;
-  border-bottom: solid 2px white;
-  color: white;
-  outline: none;
-  font-size: 1.2rem;
-  padding: 0.5rem 0;
-}
-
-.Valid {
-  border-color: green;
-}
-
-.Invalid {
-  border-color: red;
-}
