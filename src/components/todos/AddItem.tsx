@@ -5,7 +5,7 @@ import {
 import {
   useInput,
   Validator,
-} from '../hooks/useInput';
+} from '../../hooks/useInput';
 import {
   Card,
 } from '../layout/Card';

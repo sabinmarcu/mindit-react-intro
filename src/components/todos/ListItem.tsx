@@ -4,17 +4,20 @@ import {
 import {
   Checkbox,
 } from '@mui/material';
-import styled from '@emotion/styled';
 import {
   Todo,
   useTodo,
   useTodoToggle,
   withTodo,
 } from './useTodos';
-import styles from './ListItem.module.css';
 import {
   DeleteItem,
 } from './DeleteItem';
+import {
+  Buttons,
+  Text,
+  Wrapper,
+} from './ListItem.style';
 
 interface ListItemProps {
   todo: Todo['id'],
@@ -30,24 +33,20 @@ export const ListItem = forwardRef<HTMLDivElement, ListItemProps>(
     } = useTodo(id);
     const onToggle = useTodoToggle(id);
     return (
-      <div className={styles.Item} ref={ref}>
-        <p>{text}</p>
-        <aside>
+      <Wrapper ref={ref}>
+        <Text>{text}</Text>
+        <Buttons>
           <input
             type="checkbox"
             checked={done}
             onChange={onToggle}
           />
           <DeleteItem id={id} />
-        </aside>
-      </div>
+        </Buttons>
+      </Wrapper>
     );
   },
 );
-
-const StyledP = styled.p`
-  color: inherit;
-`;
 
 export const ListItemWithHoc = forwardRef<
   HTMLDivElement,
@@ -61,28 +60,20 @@ export const ListItemWithHoc = forwardRef<
 }, ref) => {
   const onToggle = useTodoToggle(id);
   return (
-    <div
-      className={[styles.Item, className].filter(Boolean).join(' ')}
+    <Wrapper
+      className={className}
       ref={ref}
     >
-      <StyledP>{text}</StyledP>
-      <aside>
+      <Text variant="h4">{text}</Text>
+      <Buttons>
         <Checkbox
           checked={done}
           onChange={onToggle}
         />
         <DeleteItem id={id} />
-      </aside>
-    </div>
+      </Buttons>
+    </Wrapper>
   );
 });
 
-export const ListItemAfterHoc = true
-// styled(
-  && withTodo(ListItemWithHoc);
-// )`
-//   background: blue;
-//   ${StyledP} {
-//     color: green;
-//   }
-// `;
+export const ListItemAfterHoc = withTodo(ListItemWithHoc);

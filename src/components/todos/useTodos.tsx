@@ -14,7 +14,7 @@ import {
 import list from '../../data/todos.json';
 import {
   useLocalStorage,
-} from '../hooks/useLocalStorage';
+} from '../../hooks/useLocalStorage';
 
 export type Todo = typeof list[number];
 

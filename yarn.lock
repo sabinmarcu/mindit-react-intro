@@ -520,6 +520,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fontsource/roboto@npm:^4.5.8":
+  version: 4.5.8
+  resolution: "@fontsource/roboto@npm:4.5.8"
+  checksum: 460b6de2c9f7a172192c3f5bdd3aa11f78f0b6660dca9dc2b9d8207272b50c55b5a8f2da68e11e7fbaf44c7d3cf4191030eecce9def79fab75d4cc1de39754e2
+  languageName: node
+  linkType: hard
+
 "@gar/promisify@npm:^1.1.3":
   version: 1.1.3
   resolution: "@gar/promisify@npm:1.1.3"
@@ -631,6 +638,22 @@ __metadata:
   version: 5.10.15
   resolution: "@mui/core-downloads-tracker@npm:5.10.15"
   checksum: 750e0a066d7323bcda2465dce5df534e86a675200b0a0a3ce89b9afada618adfef8344ad532148a549840b8228b8e79e90026222f55a51f5e3c35ae6f3dfc7a7
+  languageName: node
+  linkType: hard
+
+"@mui/icons-material@npm:^5.10.15":
+  version: 5.10.15
+  resolution: "@mui/icons-material@npm:5.10.15"
+  dependencies:
+    "@babel/runtime": ^7.20.1
+  peerDependencies:
+    "@mui/material": ^5.0.0
+    "@types/react": ^17.0.0 || ^18.0.0
+    react: ^17.0.0 || ^18.0.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: e0ba07e43aae36ae5528bd3961584417451f031072950f12eba09f3893ebbe97ae2a7b10638f8432820e08b5f99bf1043265502545168c0cf6415b3ad6cdbaf2
   languageName: node
   linkType: hard
 
@@ -4170,7 +4193,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.6.4":
+"typescript@npm:4.9":
   version: 4.9.3
   resolution: "typescript@npm:4.9.3"
   bin:
@@ -4180,7 +4203,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.6.4#~builtin<compat/typescript>":
+"typescript@patch:typescript@4.9#~builtin<compat/typescript>":
   version: 4.9.3
   resolution: "typescript@patch:typescript@npm%3A4.9.3#~builtin<compat/typescript>::version=4.9.3&hash=701156"
   bin:
@@ -4247,6 +4270,15 @@ __metadata:
   dependencies:
     punycode: ^2.1.0
   checksum: 7167432de6817fe8e9e0c9684f1d2de2bb688c94388f7569f7dbdb1587c9f4ca2a77962f134ec90be0cc4d004c939ff0d05acc9f34a0db39a3c797dada262633
+  languageName: node
+  linkType: hard
+
+"use-sync-external-store@npm:1.2.0":
+  version: 1.2.0
+  resolution: "use-sync-external-store@npm:1.2.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 5c639e0f8da3521d605f59ce5be9e094ca772bd44a4ce7322b055a6f58eeed8dda3c94cabd90c7a41fb6fa852210092008afe48f7038792fd47501f33299116a
   languageName: node
   linkType: hard
 
@@ -4342,6 +4374,8 @@ __metadata:
     "@emotion/babel-plugin": ^11.10.5
     "@emotion/react": ^11.10.5
     "@emotion/styled": ^11.10.5
+    "@fontsource/roboto": ^4.5.8
+    "@mui/icons-material": ^5.10.15
     "@mui/material": ^5.10.15
     "@types/react": ^18.0.24
     "@types/react-dom": ^18.0.8
@@ -4359,8 +4393,9 @@ __metadata:
     eslint-plugin-react: ^7.31.9
     react: ^18.2.0
     react-dom: ^18.2.0
-    typescript: ^4.6.4
+    typescript: 4.9
     vite: ^3.2.3
+    zustand: ^4.1.4
   languageName: unknown
   linkType: soft
 
@@ -4389,5 +4424,22 @@ __metadata:
   version: 0.1.0
   resolution: "yocto-queue@npm:0.1.0"
   checksum: f77b3d8d00310def622123df93d4ee654fc6a0096182af8bd60679ddcdfb3474c56c6c7190817c84a2785648cdee9d721c0154eb45698c62176c322fb46fc700
+  languageName: node
+  linkType: hard
+
+"zustand@npm:^4.1.4":
+  version: 4.1.4
+  resolution: "zustand@npm:4.1.4"
+  dependencies:
+    use-sync-external-store: 1.2.0
+  peerDependencies:
+    immer: ">=9.0"
+    react: ">=16.8"
+  peerDependenciesMeta:
+    immer:
+      optional: true
+    react:
+      optional: true
+  checksum: a9ceb7849ebf407d31a6121be09acfb041324f6f45ca9a3f62ab85e2d840d0f48f157abd99ed7b9e08b96ebb4e15480b4a196ed8b1df8a5a9a2ba9afd7c639a7
   languageName: node
   linkType: hard
