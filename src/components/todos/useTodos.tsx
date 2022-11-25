@@ -135,3 +135,25 @@ export const useTodoDelete = (id: Todo['id']) => {
 export const useTodoAdd = () => (
   useContext(TodosContext).addItem
 );
+
+type WrapperProps<P> =
+  Omit<P, keyof Todo>
+  & { todo: Todo['id'] };
+
+export const withTodo = <P extends Todo>(
+  Component: FC<P>,
+) => {
+  const Wrapper: FC<WrapperProps<P>> = (props) => {
+    const { todo: id, ...rest } = props;
+    const todo = useTodo(id);
+    const finalProps = { ...rest, ...todo } as unknown as P;
+    return (
+      <Component
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...finalProps}
+      />
+    );
+  };
+  Wrapper.displayName = `withTodo(${Component.displayName ?? Component.name})`;
+  return Wrapper;
+};

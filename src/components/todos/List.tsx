@@ -5,7 +5,7 @@ import {
   Card,
 } from '../layout/Card';
 import {
-  ListItem,
+  ListItemAfterHoc,
 } from './ListItem';
 import {
   useTodosListIds,
@@ -16,7 +16,7 @@ export const List: FC = () => {
   return (
     <Card>
       {ids.map((id) => (
-        <ListItem
+        <ListItemAfterHoc
           key={id}
           todo={id}
         />
