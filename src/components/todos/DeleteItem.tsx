@@ -18,6 +18,13 @@ export const DeleteItem: FC<DeleteItemProps> = ({
 }) => {
   const onDelete = useTodoDelete(id);
   return (
-    <Button type="button" onClick={onDelete}>Delete</Button>
+    <Button
+      type="button"
+      onClick={onDelete}
+      variant="contained"
+      color="primary"
+    >
+      Delete
+    </Button>
   );
 };

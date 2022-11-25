@@ -2,6 +2,10 @@ import {
   forwardRef,
 } from 'react';
 import {
+  Checkbox,
+} from '@mui/material';
+import styled from '@emotion/styled';
+import {
   Todo,
   useTodo,
   useTodoToggle,
@@ -41,18 +45,29 @@ export const ListItem = forwardRef<HTMLDivElement, ListItemProps>(
   },
 );
 
-export const ListItemWithHoc = forwardRef<HTMLDivElement, Todo>(({
+const StyledP = styled.p`
+  color: inherit;
+`;
+
+export const ListItemWithHoc = forwardRef<
+  HTMLDivElement,
+  // eslint-disable-next-line react/require-default-props
+  Todo & { className?: string }
+>(({
   text,
   done,
   id,
+  className,
 }, ref) => {
   const onToggle = useTodoToggle(id);
   return (
-    <div className={styles.Item} ref={ref}>
-      <p>{text}</p>
+    <div
+      className={[styles.Item, className].filter(Boolean).join(' ')}
+      ref={ref}
+    >
+      <StyledP>{text}</StyledP>
       <aside>
-        <input
-          type="checkbox"
+        <Checkbox
           checked={done}
           onChange={onToggle}
         />
@@ -62,5 +77,12 @@ export const ListItemWithHoc = forwardRef<HTMLDivElement, Todo>(({
   );
 });
 
-// @ts-ignore
-export const ListItemAfterHoc = withTodo(ListItemWithHoc);
+export const ListItemAfterHoc = true
+// styled(
+  && withTodo(ListItemWithHoc);
+// )`
+//   background: blue;
+//   ${StyledP} {
+//     color: green;
+//   }
+// `;

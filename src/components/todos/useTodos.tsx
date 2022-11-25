@@ -2,8 +2,10 @@ import {
   createContext,
   FC,
   forwardRef,
+  ForwardRefExoticComponent,
   PropsWithChildren,
-  PropsWithRef,
+  PropsWithoutRef,
+  RefAttributes,
   useCallback,
   useContext,
   useMemo,
@@ -142,17 +144,15 @@ type WrapperProps<P> =
   Omit<P, keyof Todo>
   & { todo: Todo['id'] };
 
-export const withTodo = <P extends Todo, R extends HTMLElement>(
-// @TODO: find a way to type this
-  Component: FC<P & PropsWithRef<R>>,
+export const withTodo = <R extends HTMLElement, P extends Todo>(
+  Component: ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<R>>,
 ) => {
   const Wrapper = forwardRef<R, WrapperProps<P>>(
     (props, ref) => {
       const { todo: id, ...rest } = props;
       const todo = useTodo(id);
-      const finalProps = { ...rest, ...todo } as unknown as P;
+      const finalProps = { ...rest, ...todo } as unknown as PropsWithoutRef<P>;
       return (
-        // @ts-ignore
         <Component
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...finalProps}

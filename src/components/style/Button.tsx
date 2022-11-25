@@ -1,18 +1,12 @@
 import styled from '@emotion/styled';
+import MUIButton from '@mui/material/Button';
 
-export const Button = styled.button`
-  border: none;
-  padding: 1.2rem;
+export const Button = styled(MUIButton)`
   border-radius: 4px;
-  background-color: #fff;
   color: black;
-  font-size: 1.2rem;
   cursor: pointer;
-  &[disabled] {
-    background-color: #aaa;
+  &&[disabled] {
+    pointer-events: auto;
     cursor: not-allowed;
-  }
-  &:hover:not([disabled]) {
-    background-color: #ccc;
   }
 `;
