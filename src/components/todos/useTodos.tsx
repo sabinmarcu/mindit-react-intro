@@ -9,6 +9,9 @@ import {
 } from 'react';
 
 import list from '../../data/todos.json';
+import {
+  useLocalStorage,
+} from '../hooks/useLocalStorage';
 
 export type Todo = typeof list[number];
 
@@ -27,7 +30,7 @@ export const TodosContext = createContext<TodosType>({
 });
 
 export const useTodos = () => {
-  const [items, setItems] = useState(list);
+  const [items, setItems] = useLocalStorage('todos', list);
   const onToggle = useCallback(
     (id: Todo['id']) => {
       setItems((prevItems) => prevItems.map((item) => {
