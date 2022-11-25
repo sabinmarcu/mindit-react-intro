@@ -5,7 +5,6 @@ import {
   useCallback,
   useContext,
   useMemo,
-  useState,
 } from 'react';
 
 import list from '../../data/todos.json';
@@ -14,6 +13,21 @@ import {
 } from '../hooks/useLocalStorage';
 
 export type Todo = typeof list[number];
+
+export const isTodo = (value: unknown): value is Todo => (
+  typeof value === 'object'
+  && Object.prototype.hasOwnProperty.call(value, 'id')
+  && Object.prototype.hasOwnProperty.call(value, 'text')
+  && Object.prototype.hasOwnProperty.call(value, 'done')
+  && typeof (value as Todo).id === 'string'
+  && typeof (value as Todo).text === 'string'
+  && typeof (value as Todo).done === 'boolean'
+);
+
+export const isTodoList = (value: unknown): value is Todo[] => (
+  Array.isArray(value)
+  && value.every(isTodo)
+);
 
 interface TodosType {
   todos: Todo[],
