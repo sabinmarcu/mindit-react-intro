@@ -1,5 +1,5 @@
 import {
-  FC,
+  forwardRef,
   useCallback,
 } from 'react';
 import {
@@ -34,46 +34,49 @@ const hasLength: Validator = (value: string) => ((value.length > 50)
 
 const validators = [isEmpty, hasForbiddenCharacters, hasLength];
 
-export const AddItem: FC = () => {
-  const {
-    value, onChange, isValid, errors, isTouched, reset,
-  } = useInput('', validators);
-  const addItem = useTodoAdd();
-  const onSubmit = useCallback(
-    () => {
-      if (isValid) {
-        addItem(value);
-        reset();
-      }
-    },
-    [isValid, value, addItem, reset],
-  );
-  return (
-    <Card>
-      <div className={styles.Wrapper}>
-        <Input
-          type="text"
-          valid={isValid}
-          touched={isTouched}
-          value={value}
-          onChange={onChange}
-        />
-        <Button
-          type="button"
-          className={styles.Button}
-          disabled={!isValid}
-          onClick={onSubmit}
-        >
-          Add
-        </Button>
-      </div>
-      {isTouched && !isValid
-        ? (
-          <div>
-            {errors.map((error) => <div key={error}>{error}</div>)}
-          </div>
-        )
-        : null }
-    </Card>
-  );
-};
+export const AddItem = forwardRef<HTMLInputElement>(
+  (_, ref) => {
+    const {
+      value, onChange, isValid, errors, isTouched, reset,
+    } = useInput('', validators);
+    const addItem = useTodoAdd();
+    const onSubmit = useCallback(
+      () => {
+        if (isValid) {
+          addItem(value);
+          reset();
+        }
+      },
+      [isValid, value, addItem, reset],
+    );
+    return (
+      <Card>
+        <div className={styles.Wrapper}>
+          <Input
+            type="text"
+            valid={isValid}
+            touched={isTouched}
+            value={value}
+            onChange={onChange}
+            ref={ref}
+          />
+          <Button
+            type="button"
+            className={styles.Button}
+            disabled={!isValid}
+            onClick={onSubmit}
+          >
+            Add
+          </Button>
+        </div>
+        {isTouched && !isValid
+          ? (
+            <div>
+              {errors.map((error) => <div key={error}>{error}</div>)}
+            </div>
+          )
+          : null }
+      </Card>
+    );
+  },
+);

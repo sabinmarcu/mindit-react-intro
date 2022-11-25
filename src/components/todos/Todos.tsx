@@ -1,5 +1,7 @@
 import {
   FC,
+  useEffect,
+  useRef,
 } from 'react';
 import {
   AddItem,
@@ -11,9 +13,18 @@ import {
   TodosProvider,
 } from './useTodos';
 
-export const Todos: FC = () => (
-  <TodosProvider>
-    <AddItem />
-    <List />
-  </TodosProvider>
-);
+export const Todos: FC = () => {
+  const ref = useRef<HTMLInputElement>(null);
+  useEffect(
+    () => {
+      ref.current?.focus();
+    },
+    [ref],
+  );
+  return (
+    <TodosProvider>
+      <AddItem ref={ref} />
+      <List />
+    </TodosProvider>
+  );
+};
