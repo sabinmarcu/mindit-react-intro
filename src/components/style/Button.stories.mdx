@@ -1,0 +1,44 @@
+<!-- Button.stories.mdx -->
+
+import { Meta, Story } from '@storybook/addon-docs';
+
+import { Button } from './Button';
+
+<Meta 
+  title="Button" 
+  component={Button} 
+  argTypes={{
+    color: {
+      options: ['primary', 'secondary'],
+      control: { type: 'radio' }
+    },
+    variant: {
+      options: ['outlined', 'contained', 'text'],
+      control: { type: 'radio' }
+    }
+  }}
+/>
+
+export const Template = (args) => (
+  <Button {...args}>Button</Button>
+);
+
+# Button
+
+<Story name="Default">
+  {Template.bind({})}
+</Story>
+
+<Story name="Primary" args={{
+  color: 'primary',
+  variant: 'contained'
+}}>
+  {Template.bind({})}
+</Story>
+
+<Story name="Secondary" args={{
+  color: 'secondary',
+  variant: 'contained'
+}}>
+  {Template.bind({})}
+</Story>
