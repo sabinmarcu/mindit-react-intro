@@ -93,34 +93,36 @@ export const useFetch = (
   const setError = useSetRecoilState(fetchError(target));
   const setStatusCode = useSetRecoilState(fetchStatusCode(target));
   const fetchUrl = useCallback(
-    () => {
+    async (data?: any) => {
       setResponse(null);
       setLoading(false);
       setError(null);
       setStatusCode(0);
-      const controller = new AbortController();
-      (async () => {
-        try {
-          const request = fetch(url, { method, signal: controller.signal });
-          setLoading(true);
-          const response = await request;
-          if (response.status !== 200) {
-            throw new FetchError(await response.text(), response.status);
-          }
-          const json = await response.json();
-          setResponse(json);
-        } catch (e: unknown) {
-          if (e instanceof FetchError) {
-            setError(e.message);
-            setStatusCode(e.statusCode);
-          } else {
-            setError(e);
-          }
-        } finally {
-          setLoading(false);
+      try {
+        const request = fetch(url, {
+          method,
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        setLoading(true);
+        const response = await request;
+        if (response.status !== 200) {
+          throw new FetchError(await response.text(), response.status);
         }
-      })();
-      return () => () => controller.abort();
+        const json = await response.json();
+        setResponse(json);
+      } catch (e: unknown) {
+        if (e instanceof FetchError) {
+          setError(e.message);
+          setStatusCode(e.statusCode);
+        } else {
+          setError(e);
+        }
+      } finally {
+        setLoading(false);
+      }
     },
     [url, method, setResponse, setLoading, setError, setStatusCode],
   );

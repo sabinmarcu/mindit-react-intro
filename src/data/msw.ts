@@ -35,6 +35,20 @@ const worker = setupWorker(
     return res(ctx.json(movie));
   }),
 
+  rest.post<Movie, { id: string }>('/movies/:id', async (req, res, ctx) => {
+    const { id } = req.params;
+    const body = (await req.json()) as Movie;
+    const movieIndex = movies.findIndex((movie) => movie.id === id);
+    if (movieIndex < 0) {
+      return res(
+        ctx.status(404),
+      );
+    }
+    movies[movieIndex] = body;
+    await sleep(Math.random() * 1000 + 2000);
+    return res(ctx.json(body));
+  }),
+
 );
 
 worker.start();

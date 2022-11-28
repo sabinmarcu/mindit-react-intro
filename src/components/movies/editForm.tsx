@@ -22,12 +22,17 @@ import {
   ComponentPropsWithoutRef,
 } from 'react';
 import {
+  useNavigate,
+} from 'react-router-dom';
+import {
   Movie,
 } from '../../data/msw';
 import {
   Validator,
 } from '../../hooks/useInput';
 import {
+  Fetch,
+  FetchContext,
   useFetchResponse,
   withResponse,
 } from '../style/fetch';
@@ -128,7 +133,7 @@ export const EditProvider: FC<PropsWithChildren> = ({
   );
   useEffect(
     () => {
-      if (!context) {
+      if (!context || !movie) {
         return;
       }
       const newTouched = { ...touched };
@@ -300,10 +305,34 @@ const isYear = ((value: string) => (
   !/^[0-9]{4}$/.test(value) ? 'Year must be 4 digits' : undefined
 )) satisfies Validator;
 
+const SubmitButton: FC = () => {
+  const navigate = useNavigate();
+  const { shouldReset, shouldSubmit } = useContext(EditContext);
+  const { send } = useContext(FetchContext);
+  const onClick = useCallback(
+    async () => {
+      await send();
+      navigate('/');
+    },
+    [send, navigate],
+  );
+
+  return (
+    <Button
+      variant="contained"
+      color="primary"
+      onClick={onClick}
+      disabled={!shouldReset || !shouldSubmit}
+    >
+      Submit
+    </Button>
+  );
+};
+
 export const EditForm = withResponse(
-  forwardRef(() => {
+  forwardRef(({ url }: { url: string }) => {
     const title = useFieldValue('title');
-    const { reset, shouldReset, shouldSubmit } = useContext(EditContext);
+    const { reset, shouldReset, data } = useContext(EditContext);
     return (
       <>
         <CardHeader title={title} />
@@ -322,13 +351,9 @@ export const EditForm = withResponse(
           >
             Reset
           </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            disabled={!shouldReset || !shouldSubmit}
-          >
-            Submit
-          </Button>
+          <Fetch target={{ url, method: 'POST' }} body={data}>
+            <SubmitButton />
+          </Fetch>
         </CardActions>
       </>
     );

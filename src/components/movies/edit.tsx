@@ -59,7 +59,7 @@ export const EditMovie: FC = () => {
         <Wrapper>
           <Card>
             <Loading />
-            <EditForm />
+            <EditForm url={url} />
           </Card>
           <Card>
             <Loading />

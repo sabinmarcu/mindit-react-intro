@@ -10,6 +10,7 @@ import {
   useEffect,
   useMemo,
   useState,
+  useCallback,
 } from 'react';
 import {
   useRecoilValue,
@@ -26,7 +27,8 @@ import {
 
 export type FetchContextType = {
   target: FetchTarget;
-  fetch: () => void;
+  fetch: ReturnType<typeof useFetch>;
+  send: () => void;
 };
 
 export const FetchContext = createContext<FetchContextType>({
@@ -34,6 +36,7 @@ export const FetchContext = createContext<FetchContextType>({
     url: '',
     method: 'GET',
   },
+  send: () => { throw new Error('FetchContext not provided'); },
   fetch: () => { throw new Error('FetchContext not provided'); },
 });
 
@@ -105,12 +108,14 @@ export const withLoadingState = <T extends unknown, P extends { loading: boolean
 export interface FetchProps extends PropsWithChildren<{
   target: FetchParam;
   fetchOnMount?: boolean;
+  body?: any;
 }> {}
 
 export const Fetch: FC<FetchProps> = ({
   target: params,
   children,
   fetchOnMount,
+  body,
 }) => {
   const target = useFetchTarget(params);
   const fetch = useFetch(target);
@@ -119,16 +124,22 @@ export const Fetch: FC<FetchProps> = ({
     () => {
       if (fetchOnMount && !mounted) {
         setMounted(true);
-        return fetch();
+        fetch(body);
       }
-      return undefined;
     },
     [fetch, mounted, setMounted, fetchOnMount],
+  );
+  const send = useCallback(
+    () => {
+      fetch(body);
+    },
+    [fetch, body],
   );
   const context = useMemo(
     () => ({
       target,
       fetch,
+      send,
     }) satisfies FetchContextType,
     [target, fetch],
   );
