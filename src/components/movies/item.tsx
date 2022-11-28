@@ -17,9 +17,6 @@ import {
   Link,
 } from 'react-router-dom';
 import {
-  r,
-} from 'msw/lib/SetupApi-b2f0e5ac';
-import {
   useRecoilValue,
 } from 'recoil';
 import {

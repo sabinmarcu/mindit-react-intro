@@ -4,7 +4,6 @@ import {
   PropsWithChildren,
 } from 'react';
 import {
-  Route,
   Navigate,
 } from 'react-router-dom';
 import {

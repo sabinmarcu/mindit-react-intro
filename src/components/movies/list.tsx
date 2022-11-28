@@ -1,8 +1,6 @@
 import styled from '@emotion/styled';
 import {
   CircularProgress,
-  Container,
-  Typography,
 } from '@mui/material';
 import {
   FC,
