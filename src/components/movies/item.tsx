@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import {
   Card,
   CardContent,
@@ -15,6 +16,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import {
   Link,
 } from 'react-router-dom';
+import {
+  r,
+} from 'msw/lib/SetupApi-b2f0e5ac';
 import {
   Fetch,
   useFetchResponse,
@@ -42,39 +46,45 @@ export const Loading = withLoading(
   ),
 );
 
+// eslint-disable-next-line react/require-default-props
+export const MovieDisplay: FC<Movie & { edit?: boolean }> = ({
+  title,
+  year,
+  genre,
+  poster,
+  plot,
+  id,
+  edit = true,
+}) => (
+  <>
+    <CardHeader
+      title={title}
+      subheader={`${genre} - ${year}`}
+      action={edit
+        ? (
+          <Link to={`/${id}`}>
+            <IconButton aria-label="settings">
+              <EditIcon />
+            </IconButton>
+          </Link>
+        )
+        : undefined}
+    />
+    <CardMedia
+      component="img"
+      height="200"
+      image={poster}
+      alt={title}
+    />
+    <CardContent>{plot}</CardContent>
+  </>
+);
+
 export const Response = withResponse(
   forwardRef(
     () => {
-      const {
-        title,
-        year,
-        genre,
-        poster,
-        plot,
-        id,
-      } = useFetchResponse<Movie>() ?? {};
-      return (
-        <>
-          <CardHeader
-            title={title}
-            subheader={`${genre} - ${year}`}
-            action={(
-              <Link to={`/${id}`}>
-                <IconButton aria-label="settings">
-                  <EditIcon />
-                </IconButton>
-              </Link>
-            )}
-          />
-          <CardMedia
-            component="img"
-            height="200"
-            image={poster}
-            alt={title}
-          />
-          <CardContent>{plot}</CardContent>
-        </>
-      );
+      const movie = useFetchResponse<Movie>() ?? {};
+      return (<MovieDisplay {...movie} />);
     },
   ),
 );
