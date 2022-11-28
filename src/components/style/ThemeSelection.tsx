@@ -25,7 +25,7 @@ import {
 } from '../../data/themes';
 import {
   themeSelection,
-} from '../../stores/themeSelectionRecoil';
+} from '../../stores/themeSelection';
 
 export const ThemeSelectionIcon: FC = () => {
   const selection = useRecoilValue(themeSelection);

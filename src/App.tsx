@@ -7,15 +7,26 @@ import {
   RecoilRoot,
 } from 'recoil';
 import {
-  Todos,
-} from './components/todos/Todos';
+  Helmet,
+} from 'react-helmet';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  useParams,
+  useLocation,
+} from 'react-router-dom';
 import styles from './App.module.css';
 import {
   ThemeSelection,
 } from './components/style/ThemeSelection';
 import {
   ThemeProvider,
-} from './stores/themeSelectionRecoil';
+} from './stores/themeSelection';
+import {
+  Movies,
+} from './components/movies/index';
 
 export const AppWrapper = styled.section(`
   width: 100%;
@@ -43,25 +54,41 @@ export const ToolbarContainer = styled(Container)`
   justify-content: space-between;
 `;
 
+const Demo = () => {
+  const { id } = useParams<{ id: string }>();
+  console.log(({ id }));
+  return (<h1>Demo</h1>);
+};
+
 function App() {
   return (
-    <RecoilRoot>
-      <ThemeProvider>
-        <AppWrapper>
-          <AppBar position="sticky">
-            <Toolbar>
-              <ToolbarContainer>
-                <Typography variant="h4">Todo List App</Typography>
-                <ThemeSelection />
-              </ToolbarContainer>
-            </Toolbar>
-          </AppBar>
-          <Container className={styles.Content}>
-            <Todos />
-          </Container>
-        </AppWrapper>
-      </ThemeProvider>
-    </RecoilRoot>
+    <BrowserRouter>
+      <Helmet>
+        <title>Movies App</title>
+      </Helmet>
+      <RecoilRoot>
+        <ThemeProvider>
+          <AppWrapper>
+            <AppBar position="sticky">
+              <Toolbar>
+                <ToolbarContainer>
+                  <Typography variant="h4">
+                    <Link to="/">Movies App</Link>
+                  </Typography>
+                  <ThemeSelection />
+                </ToolbarContainer>
+              </Toolbar>
+            </AppBar>
+            <Container className={styles.Content}>
+              <Routes>
+                <Route path="/" element={<Movies />} />
+                <Route path="/:id" element={<Demo />} />
+              </Routes>
+            </Container>
+          </AppWrapper>
+        </ThemeProvider>
+      </RecoilRoot>
+    </BrowserRouter>
   );
 }
 

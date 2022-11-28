@@ -8,4 +8,5 @@
   align-items: flex-start;
   flex-flow: column nowrap;
   justify-content: flex-start;
+  flex: 1;
 }
