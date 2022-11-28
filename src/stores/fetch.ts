@@ -5,8 +5,12 @@ import {
 import {
   atomFamily,
   selectorFamily,
+  useRecoilValue,
   useSetRecoilState,
 } from 'recoil';
+import {
+  authState,
+} from './auth';
 
 const methods = ['GET', 'POST', 'PUT', 'DELETE'] as const;
 type FetchMethod = typeof methods[number];
@@ -92,6 +96,7 @@ export const useFetch = (
   const setLoading = useSetRecoilState(fetchLoading(target));
   const setError = useSetRecoilState(fetchError(target));
   const setStatusCode = useSetRecoilState(fetchStatusCode(target));
+  const hasAuth = useRecoilValue(authState);
   const fetchUrl = useCallback(
     async (data?: any) => {
       setResponse(null);
@@ -104,6 +109,7 @@ export const useFetch = (
           body: JSON.stringify(data),
           headers: {
             'Content-Type': 'application/json',
+            ...(hasAuth ? { Authorization: 'Yes' } : {}),
           },
         });
         setLoading(true);

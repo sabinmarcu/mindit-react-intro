@@ -23,13 +23,17 @@ import {
 } from './components/style/ThemeSelection';
 import {
   ThemeProvider,
-} from './stores/themeSelection';
+} from './stores/themeSelectionRecoil';
 import {
   Movies,
 } from './components/movies/index';
 import {
   EditMovie,
 } from './components/movies/edit';
+import {
+  AuthButton,
+} from './components/style/AuthButton';
+import { ProtectedRoute } from './stores/auth';
 
 export const AppWrapper = styled.section(`
   width: 100%;
@@ -68,18 +72,26 @@ function App() {
           <AppWrapper>
             <AppBar position="sticky">
               <Toolbar>
-                <ToolbarContainer>
+                <ToolbarContainer style={{ marginRight: 'auto' }}>
                   <Typography variant="h4">
                     <Link to="/">Movies App</Link>
                   </Typography>
                   <ThemeSelection />
+                  <AuthButton />
                 </ToolbarContainer>
               </Toolbar>
             </AppBar>
             <Container className={styles.Content}>
               <Routes>
                 <Route path="/" element={<Movies />} />
-                <Route path="/:id" element={<EditMovie />} />
+                <Route 
+                  path="/:id" 
+                  element={
+                    <ProtectedRoute>
+                      <EditMovie />
+                    </ProtectedRoute>
+                  } 
+                />
               </Routes>
             </Container>
           </AppWrapper>

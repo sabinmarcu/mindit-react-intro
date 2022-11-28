@@ -16,7 +16,7 @@ import {
   ThemeSelection,
 } from '../data/themes';
 
-const localStorageEffect = <T extends unknown>(key: string): AtomEffect<T> => ({
+export const localStorageEffect = <T extends unknown>(key: string): AtomEffect<T> => ({
   setSelf,
   onSet,
 }) => {

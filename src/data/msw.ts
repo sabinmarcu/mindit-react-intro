@@ -36,6 +36,13 @@ const worker = setupWorker(
   }),
 
   rest.post<Movie, { id: string }>('/movies/:id', async (req, res, ctx) => {
+    const Authorization = req.headers.get('authorization');
+    console.log({ Authorization });
+    if (!Authorization) {
+      return res(
+        ctx.status(403),
+      );
+    }
     const { id } = req.params;
     const body = (await req.json()) as Movie;
     const movieIndex = movies.findIndex((movie) => movie.id === id);

@@ -20,6 +20,9 @@ import {
   r,
 } from 'msw/lib/SetupApi-b2f0e5ac';
 import {
+  useRecoilValue,
+} from 'recoil';
+import {
   Fetch,
   useFetchResponse,
   withLoading,
@@ -28,6 +31,9 @@ import {
 import {
   Movie,
 } from '../../data/msw';
+import {
+  authState,
+} from '../../stores/auth';
 
 export const Loading = withLoading(
   forwardRef(
@@ -84,7 +90,8 @@ export const Response = withResponse(
   forwardRef(
     () => {
       const movie = useFetchResponse<Movie>() ?? {};
-      return (<MovieDisplay {...movie} />);
+      const hasAuth = useRecoilValue(authState);
+      return (<MovieDisplay {...movie} edit={hasAuth} />);
     },
   ),
 );
